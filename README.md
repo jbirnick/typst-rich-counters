@@ -63,12 +63,15 @@ To create a `richcounter`, you have to call the `richcounter(...)` function.
 It accepts three arguments:
 
 - `identifier` (required)
+
   This must be a `string` which identifies the counter. The string must be unique.
 
 - `inherited_levels`
+
   This specifies how many levels should be inherited from the parent counter.
 
 - `inherited_from` (Default: `heading`)
+
   This specifies the parent counter. Can be a `richcounter`, a `counter`, or anything that is accepted by the `counter(...)` constructor.
   If not specified, defaults to `heading` (and hence it will inherit from the counter of the headings).
 
@@ -79,9 +82,11 @@ It accepts three arguments:
 You use your constructed `richcounter` through its `step` and `display` function.
 
 - `display(numbering_style)` (needs `context`)
+
   This displays the current value of the counter
 
 - `step(depth: 1)`
+
   This steps the counter at the specified `depth` (default: `1`).
   That is, it steps the `richcounter` at level `inherited_levels + depth`.
   
