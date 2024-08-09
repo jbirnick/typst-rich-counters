@@ -25,9 +25,9 @@
   }
 
   // `step` function for this counter
-  let step = () => {
+  let step = (depth: 1) => {
     context sync()
-    cntr.step(level: inherited_levels + 1)
+    cntr.step(level: inherited_levels + depth)
   }
 
   // `display` function for this counter
