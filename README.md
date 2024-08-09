@@ -77,9 +77,18 @@ It accepts three arguments:
 
   If it's a `richcounter` and `inherited_levels` is _not_ specified, then `inherited_levels` will default to one level higher than the given `richcounter`.
 
+For example, the following creates a `richcounter` `foo` which inherits one level from the headings, and then another `richcounter` `bar` which inherits two levels (implicitly) from the `foo`.
+
+```typ
+#import "@preview/rich-counters:0.1.0": *
+
+#let foo = richcounter(identifier: "foo", inherited_levels: 1)
+#let bar = richcounter(identifier: "bar", inherited_from: foo)
+```
+
 ## Usage of a `richcounter`
 
-You use your constructed `richcounter` through its `step` and `display` function.
+You use your constructed `richcounter` through its `step` and `display` function, respectively.
 
 - `display(numbering_style)` (needs `context`)
 
@@ -89,16 +98,17 @@ You use your constructed `richcounter` through its `step` and `display` function
 
   This steps the counter at the specified `depth` (default: `1`).
   That is, it steps the `richcounter` at level `inherited_levels + depth`.
-  
 
-Due to a Typst limitation, you have to put parentheses before you put the arguments, like this:
+**Due to a Typst limitation, you have to put parentheses before you put the arguments. (See below.)**
+
+For example, the following displays `mycounter` and then steps it (at depth 1).
 ```typ
+#import "@preview/rich-counters:0.1.0": *
+#let mycounter = richcounter(...)
+
 #context (mycounter.display)("1.1")
 #(mycounter.step)()
 ```
-## Examples
-
-TODO
 
 ## Roadmap
 
