@@ -77,7 +77,7 @@ It accepts three arguments:
 
   If it's a `richcounter` and `inherited_levels` is _not_ specified, then `inherited_levels` will default to one level higher than the given `richcounter`.
 
-For example, the following creates a `richcounter` `foo` which inherits one level from the headings, and then another `richcounter` `bar` which inherits two levels (implicitly) from the `foo`.
+For example, the following creates a `richcounter` `foo` which inherits one level from the headings, and then another `richcounter` `bar` which inherits two levels (implicitly) from `foo`.
 
 ```typ
 #import "@preview/rich-counters:0.1.0": *
@@ -88,7 +88,7 @@ For example, the following creates a `richcounter` `foo` which inherits one leve
 
 ## Usage of a `richcounter`
 
-You use your constructed `richcounter` through its `step` and `display` function, respectively.
+You use your constructed `richcounter` through its `step` and `display` functions.
 
 - `display(numbering_style)` (needs `context`)
 
