@@ -50,4 +50,4 @@ Stepping `mycounter` here. #(mycounter.step)()
 
 Displaying `mycounter` here: #context (mycounter.display)("1.1")
 ```
-![example.png]
+![](example.png)
