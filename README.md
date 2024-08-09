@@ -112,5 +112,5 @@ For example, the following displays `mycounter` and then steps it (at depth 1).
 
 ## Roadmap
 
-- use Typst custom types as soon as they are available
-- adopt native Typst implementation of dependent counters as soon as it's available
+- use Typst custom types as soon as they become available
+- adopt native Typst implementation of dependent counters as soon it becomes available
