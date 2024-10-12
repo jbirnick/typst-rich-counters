@@ -9,7 +9,7 @@ Concretely, it implements `rich-counter`, which is a counter that can _inherit_ 
 
 The interface is pretty much the same as the [usual counter](https://typst.app/docs/reference/introspection/counter/).
 It provides a `display()`, `get()`, `final()`, `at()`, and a `step()` method.
-An `update()` method will be implemented once its behavior is decided.
+An `update()` method will be implemented soon.
 
 ## Simple typical Showcase
 
@@ -112,13 +112,13 @@ For example, the following creates a `rich-counter` `foo` which inherits one lev
 
 **Due to a Typst limitation, you have to put parentheses before you put the arguments. (See below.)**
 
-For example, the following displays `mycounter` and then steps it (at depth 1).
+For example, the following steps `mycounter` (at depth 1) and then displays it.
 ```typ
-#import "@preview/rich-counters:0.1.0": *
+#import "@preview/rich-counters:0.2.0": *
 #let mycounter = rich-counter(...)
 
-#context (mycounter.display)("1.1")
 #(mycounter.step)()
+#context (mycounter.display)("1.1")
 ```
 
 ## Limitations
