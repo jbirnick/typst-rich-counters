@@ -5,19 +5,20 @@
 
 This package allows you to have **counters which depend on other counters**.
 
-Concretely, it implements `richcounter`, which is a counter that can _inherit_ one or more levels from another counter.
+Concretely, it implements `rich-counter`, which is a counter that can _inherit_ one or more levels from another counter.
 
-The interface is similar to the [usual counter](https://typst.app/docs/reference/introspection/counter/).
-It provides a `display()` and a `step()` method.
+The interface is pretty much the same as the [usual counter](https://typst.app/docs/reference/introspection/counter/).
+It provides a `display()`, `get()`, `final()`, `at()`, and a `step()` method.
+An `update()` method will be implemented once its behavior is decided.
 
-## Typical Showcase
+## Simple typical Showcase
 
-In the following example, the `mycounter` inherits the first level from `heading` (but not deeper levels).
+In the following example, `mycounter` inherits the first level from `heading` (but not deeper levels).
 ```typ
-#import "@preview/rich-counters:0.1.0": *
+#import "@preview/rich-counters:0.2.0": *
 
 #set heading(numbering: "1.1")
-#let mycounter = richcounter(identifier: "mycounter", inherited_levels: 1)
+#let mycounter = rich-counter(identifier: "mycounter", inherited_levels: 1)
 
 // DOCUMENT
 
@@ -57,60 +58,77 @@ Displaying `mycounter` here: #context (mycounter.display)("1.1")
 ```
 ![](example.png)
 
-## Construction of a `richcounter`
+## Construction of a `rich-counter`
 
-To create a `richcounter`, you have to call the `richcounter(...)` function.
+To create a `rich-counter`, you have to call the `rich-counter(...)` function.
 It accepts three arguments:
 
 - `identifier` (required)
 
-  This must be a `string` which identifies the counter. The string must be unique.
+  Must be a unique `string` which identifies the counter.
 
 - `inherited_levels`
 
-  This specifies how many levels should be inherited from the parent counter.
+  Specifies how many levels should be inherited from the parent counter.
 
 - `inherited_from` (Default: `heading`)
 
-  This specifies the parent counter. Can be a `richcounter`, a `counter`, or anything that is accepted by the `counter(...)` constructor.
+  Specifies the parent counter. Can be a `rich-counter` or any key that is accepted by the [`counter(...)` constructor](https://typst.app/docs/reference/introspection/counter#constructor), such as a `label`, a `selector`, a `location`, or a `function` like `heading`.
   If not specified, defaults to `heading` (and hence it will inherit from the counter of the headings).
 
-  If it's a `richcounter` and `inherited_levels` is _not_ specified, then `inherited_levels` will default to one level higher than the given `richcounter`.
+  If it's a `rich-counter` and `inherited_levels` is _not_ specified, then `inherited_levels` will default to one level higher than the given `rich-counter`.
 
-For example, the following creates a `richcounter` `foo` which inherits one level from the headings, and then another `richcounter` `bar` which inherits two levels (implicitly) from `foo`.
+For example, the following creates a `rich-counter` `foo` which inherits one level from the headings, and then another `rich-counter` `bar` which inherits two levels (implicitly) from `foo`.
 
 ```typ
-#import "@preview/rich-counters:0.1.0": *
+#import "@preview/rich-counters:0.2.0": *
 
-#let foo = richcounter(identifier: "foo", inherited_levels: 1)
-#let bar = richcounter(identifier: "bar", inherited_from: foo)
+#let foo = rich-counter(identifier: "foo", inherited_levels: 1)
+#let bar = rich-counter(identifier: "bar", inherited_from: foo)
 ```
 
-## Usage of a `richcounter`
-
-You use your constructed `richcounter` through its `step` and `display` functions.
+## Usage of a `rich-counter`
 
 - `display(numbering_style)` (needs `context`)
 
-  This displays the current value of the counter
+  Displays the current value of the counter with the given numbering style.
+
+- `get()` (needs `context`)
+
+  Returns the current value of the counter (as an `array`).
+
+- `final()` (needs `context`)
+
+  Returns the value of the counter at the end of the document.
+
+- `at(loc)` (needs `context`)
+
+  Returns the value of the counter at `loc`, where `loc` can be a `label`, `selector`, `location`, or `function`.
 
 - `step(depth: 1)`
 
-  This steps the counter at the specified `depth` (default: `1`).
-  That is, it steps the `richcounter` at level `inherited_levels + depth`.
+  Steps the counter at the specified `depth` (default: `1`).
+  That is, it steps the `rich-counter` at level `inherited_levels + depth`.
 
 **Due to a Typst limitation, you have to put parentheses before you put the arguments. (See below.)**
 
 For example, the following displays `mycounter` and then steps it (at depth 1).
 ```typ
 #import "@preview/rich-counters:0.1.0": *
-#let mycounter = richcounter(...)
+#let mycounter = rich-counter(...)
 
 #context (mycounter.display)("1.1")
 #(mycounter.step)()
 ```
 
+## Limitations
+
+Due to current Typst limitations, there is no way to detect direct updates or steps of Typst-native counters, like `counter(heading).update(...)` or `counter(heading).step(...)`.
+Only occurrences of actual `heading`s can be detected.
+So make sure that after you call e.g. `counter(heading).update(...)`, you place a heading directly after it, before you call any `rich-counter`s.
+
 ## Roadmap
 
+- implement `update()`
 - use Typst custom types as soon as they become available
 - adopt native Typst implementation of dependent counters as soon it becomes available
