@@ -3,7 +3,7 @@
 
 # `rich-counters`
 
-This package allows you to have **counters which depend on other counters**.
+This package allows you to have **counters which can inherit from other counters**.
 
 Concretely, it implements `rich-counter`, which is a counter that can _inherit_ one or more levels from another counter.
 
