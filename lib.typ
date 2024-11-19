@@ -79,7 +79,7 @@
     for update in updates {
       let level = update.value
       while value.len() < level { value.push(0) }
-      while value.len() > level { value.pop() }
+      while value.len() > level { let _ = value.pop() }
       value.at(level - 1) += 1
     }
 
@@ -91,7 +91,7 @@
     // get inherited numbers
     let num_parent = (parent_rhcntr.at)(key)
     while num_parent.len() < inherited_levels { num_parent.push(0) }
-    while num_parent.len() > inherited_levels { num_parent.pop() }
+    while num_parent.len() > inherited_levels { let _ = num_parent.pop() }
 
     // get numbers of own partial counter
     let updates = updates_during((parent_rhcntr.last_update_location)(inherited_levels, key), key)

@@ -15,7 +15,7 @@ An `update()` method will be implemented soon.
 
 In the following example, `mycounter` inherits the first level from `heading` (but not deeper levels).
 ```typ
-#import "@preview/rich-counters:0.2.1": *
+#import "@preview/rich-counters:0.2.2": *
 
 #set heading(numbering: "1.1")
 #let mycounter = rich-counter(identifier: "mycounter", inherited_levels: 1)
@@ -81,7 +81,7 @@ It accepts three arguments:
 For example, the following creates a `rich-counter` `foo` which inherits one level from the headings, and then another `rich-counter` `bar` which inherits two levels (implicitly) from `foo`.
 
 ```typ
-#import "@preview/rich-counters:0.2.1": *
+#import "@preview/rich-counters:0.2.2": *
 
 #let foo = rich-counter(identifier: "foo", inherited_levels: 1)
 #let bar = rich-counter(identifier: "bar", inherited_from: foo)
@@ -114,7 +114,7 @@ For example, the following creates a `rich-counter` `foo` which inherits one lev
 
 For example, the following steps `mycounter` (at depth 1) and then displays it.
 ```typ
-#import "@preview/rich-counters:0.2.1": *
+#import "@preview/rich-counters:0.2.2": *
 #let mycounter = rich-counter(...)
 
 #(mycounter.step)()
